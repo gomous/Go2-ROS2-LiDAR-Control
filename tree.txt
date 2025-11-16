@@ -1,0 +1,634 @@
+.
+├── Go2Py
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
+│   ├── assets
+│   │   ├── calibration
+│   │   │   ├── extrinsics
+│   │   │   │   └── crrl-robot-may27.pkl
+│   │   │   └── imu
+│   │   │       ├── acceleration.png
+│   │   │       ├── gyro.png
+│   │   │       └── imu.yaml
+│   │   ├── checkpoints
+│   │   │   ├── SoloParkour
+│   │   │   │   ├── dof_vel_3_10-00-05-00.pt
+│   │   │   │   └── trainparamsconfigmax_epochs1500_taskenvlearnlimitsfoot_contact_force_rate60_soft_07-20-22-43.pt
+│   │   │   └── walk_these_ways
+│   │   │       ├── checkpoints
+│   │   │       │   ├── ac_weights_last.pt
+│   │   │       │   ├── adaptation_module_latest.jit
+│   │   │       │   └── body_latest.jit
+│   │   │       ├── curriculum
+│   │   │       │   ├── distribution.pkl
+│   │   │       │   └── info.pkl
+│   │   │       ├── metrics.pkl
+│   │   │       └── parameters.pkl
+│   │   ├── cyclonedds.xml
+│   │   ├── d1_assets
+│   │   │   └── stl
+│   │   │       ├── Link1.STL
+│   │   │       ├── Link2.STL
+│   │   │       ├── Link3.STL
+│   │   │       ├── Link4.STL
+│   │   │       ├── Link5.STL
+│   │   │       ├── Link6.STL
+│   │   │       ├── Link7_1.STL
+│   │   │       ├── Link7_2.STL
+│   │   │       └── base_link.STL
+│   │   ├── go2_assets
+│   │   │   ├── dae
+│   │   │   │   ├── base.dae
+│   │   │   │   ├── calf.dae
+│   │   │   │   ├── calf_mirror.dae
+│   │   │   │   ├── foot.dae
+│   │   │   │   ├── hip.dae
+│   │   │   │   ├── thigh.dae
+│   │   │   │   └── thigh_mirror.dae
+│   │   │   └── obj
+│   │   │       ├── base_0.obj
+│   │   │       ├── base_1.obj
+│   │   │       ├── base_2.obj
+│   │   │       ├── base_3.obj
+│   │   │       ├── base_4.obj
+│   │   │       ├── calf_0.obj
+│   │   │       ├── calf_1.obj
+│   │   │       ├── calf_mirror_0.obj
+│   │   │       ├── calf_mirror_1.obj
+│   │   │       ├── foot.obj
+│   │   │       ├── hip_0.obj
+│   │   │       ├── hip_1.obj
+│   │   │       ├── thigh_0.obj
+│   │   │       ├── thigh_1.obj
+│   │   │       ├── thigh_mirror_0.obj
+│   │   │       └── thigh_mirror_1.obj
+│   │   ├── mujoco
+│   │   │   ├── LICENSE
+│   │   │   ├── README.md
+│   │   │   ├── d1_arm.xml
+│   │   │   ├── go2.png
+│   │   │   ├── go2.xml
+│   │   │   ├── go2_backup.xml
+│   │   │   ├── go2_with_arm.xml
+│   │   │   └── scene.xml
+│   │   └── urdf
+│   │       ├── base_link.STL
+│   │       ├── d1_description.urdf
+│   │       ├── go2.urdf
+│   │       ├── go2_reordered.urdf
+│   │       └── go2_with_arm.urdf
+│   ├── calibration.py
+│   ├── control
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── cat_parkour.cpython-312.pyc
+│   │   │   └── walk_these_ways.cpython-312.pyc
+│   │   ├── cat.py
+│   │   ├── cat_parkour.py
+│   │   ├── cat_rnn.py
+│   │   └── walk_these_ways.py
+│   ├── estimation
+│   │   ├── __init__.py
+│   │   └── contact.py
+│   ├── joy.py
+│   ├── robot
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── fsm.cpython-312.pyc
+│   │   │   ├── model.cpython-312.pyc
+│   │   │   ├── remote.cpython-312.pyc
+│   │   │   └── safety.cpython-312.pyc
+│   │   ├── fsm.py
+│   │   ├── interface.py
+│   │   ├── model.py
+│   │   ├── remote.py
+│   │   └── safety.py
+│   ├── sim
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── mujoco.cpython-312.pyc
+│   │   ├── gym
+│   │   │   ├── __init__.py
+│   │   │   ├── envs
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── base
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── base_task.py
+│   │   │   │   │   ├── curriculum.py
+│   │   │   │   │   ├── legged_robot.py
+│   │   │   │   │   └── legged_robot_config.py
+│   │   │   │   ├── go2
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── go2_config.py
+│   │   │   │   │   └── velocity_tracking
+│   │   │   │   │       └── __init__.py
+│   │   │   │   ├── rewards
+│   │   │   │   │   └── corl_rewards.py
+│   │   │   │   └── wrappers
+│   │   │   │       └── history_wrapper.py
+│   │   │   └── utils
+│   │   │       ├── __init__.py
+│   │   │       ├── math_utils.py
+│   │   │       └── terrain.py
+│   │   └── mujoco.py
+│   ├── simple_lowcmd_sender.py
+│   └── utils
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   └── __init__.cpython-312.pyc
+│       └── ros2.py
+├── Go2Py.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   ├── requires.txt
+│   └── top_level.txt
+├── LICENSE
+├── MANIFEST.in
+├── Makefile
+├── README.md
+├── deploy
+│   ├── docker
+│   │   ├── Dockerfile.bridge
+│   │   ├── Dockerfile.frontcam
+│   │   ├── Dockerfile.hesai
+│   │   ├── Dockerfile.mexplore
+│   │   ├── Dockerfile.mid360
+│   │   ├── Dockerfile.nav2
+│   │   ├── Dockerfile.nav2_source
+│   │   ├── Dockerfile.realsense
+│   │   ├── Dockerfile.robot_description
+│   │   ├── scripts
+│   │   │   ├── MID360_config.json
+│   │   │   ├── bridge_start.sh
+│   │   │   ├── build-librealsense.sh
+│   │   │   ├── front_cam_publisher.sh
+│   │   │   ├── hesai_start.sh
+│   │   │   ├── hotplug-realsense.sh
+│   │   │   ├── install-realsense-dependencies.sh
+│   │   │   ├── mexplore_start.sh
+│   │   │   ├── mid360_start.sh
+│   │   │   ├── nav2_start.sh
+│   │   │   └── robot_description.sh
+│   │   └── udev_rules
+│   │       └── 99-realsense-libusb-custom.rules
+│   ├── launch_files
+│   │   ├── bridge.launch.py
+│   │   ├── fast_lio.launch.py
+│   │   ├── hesai.launch.py
+│   │   ├── msg_MID360_launch.py
+│   │   ├── realsense-h264.launch.py
+│   │   ├── realsense.launch.py
+│   │   ├── realsense.yaml
+│   │   ├── robot_description.launch.py
+│   │   └── utlidar_to_laserscan.py
+│   ├── ros2_nodes
+│   │   ├── front-camera-publisher.py
+│   │   ├── go2_description
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── README.md
+│   │   │   ├── config
+│   │   │   │   ├── joint_names_go2_description.yaml
+│   │   │   │   └── robot_control.yaml
+│   │   │   ├── dae
+│   │   │   │   ├── base.dae
+│   │   │   │   ├── calf.dae
+│   │   │   │   ├── calf_mirror.dae
+│   │   │   │   ├── foot.dae
+│   │   │   │   ├── hip.dae
+│   │   │   │   ├── thigh.dae
+│   │   │   │   └── thigh_mirror.dae
+│   │   │   ├── launch
+│   │   │   │   ├── visualize_go2.launch.py
+│   │   │   │   └── visualize_go2.rviz
+│   │   │   ├── meshes
+│   │   │   │   ├── calf.dae
+│   │   │   │   ├── calf_mirror.dae
+│   │   │   │   ├── foot.dae
+│   │   │   │   ├── hip.dae
+│   │   │   │   ├── thigh.dae
+│   │   │   │   ├── thigh_mirror.dae
+│   │   │   │   ├── trunk.dae
+│   │   │   │   └── virtual_arm.dae
+│   │   │   ├── package.xml
+│   │   │   ├── urdf
+│   │   │   │   ├── Amended_collision_model.png
+│   │   │   │   ├── Normal_collision_model.png
+│   │   │   │   └── go2_description.urdf
+│   │   │   └── xacro
+│   │   │       ├── const.xacro
+│   │   │       ├── gazebo.xacro
+│   │   │       ├── leg.xacro
+│   │   │       ├── materials.xacro
+│   │   │       ├── robot.xacro
+│   │   │       └── transmission.xacro
+│   │   ├── go2py_bridge
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── include
+│   │   │   │   ├── common
+│   │   │   │   │   ├── motor_crc.h
+│   │   │   │   │   └── ros2_sport_client.h
+│   │   │   │   ├── joystick.h
+│   │   │   │   └── nlohmann
+│   │   │   │       ├── adl_serializer.hpp
+│   │   │   │       ├── byte_container_with_subtype.hpp
+│   │   │   │       ├── detail
+│   │   │   │       │   ├── abi_macros.hpp
+│   │   │   │       │   ├── conversions
+│   │   │   │       │   │   ├── from_json.hpp
+│   │   │   │       │   │   ├── to_chars.hpp
+│   │   │   │       │   │   └── to_json.hpp
+│   │   │   │       │   ├── exceptions.hpp
+│   │   │   │       │   ├── hash.hpp
+│   │   │   │       │   ├── input
+│   │   │   │       │   │   ├── binary_reader.hpp
+│   │   │   │       │   │   ├── input_adapters.hpp
+│   │   │   │       │   │   ├── json_sax.hpp
+│   │   │   │       │   │   ├── lexer.hpp
+│   │   │   │       │   │   ├── parser.hpp
+│   │   │   │       │   │   └── position_t.hpp
+│   │   │   │       │   ├── iterators
+│   │   │   │       │   │   ├── internal_iterator.hpp
+│   │   │   │       │   │   ├── iter_impl.hpp
+│   │   │   │       │   │   ├── iteration_proxy.hpp
+│   │   │   │       │   │   ├── iterator_traits.hpp
+│   │   │   │       │   │   ├── json_reverse_iterator.hpp
+│   │   │   │       │   │   └── primitive_iterator.hpp
+│   │   │   │       │   ├── json_custom_base_class.hpp
+│   │   │   │       │   ├── json_pointer.hpp
+│   │   │   │       │   ├── json_ref.hpp
+│   │   │   │       │   ├── macro_scope.hpp
+│   │   │   │       │   ├── macro_unscope.hpp
+│   │   │   │       │   ├── meta
+│   │   │   │       │   │   ├── call_std
+│   │   │   │       │   │   │   ├── begin.hpp
+│   │   │   │       │   │   │   └── end.hpp
+│   │   │   │       │   │   ├── cpp_future.hpp
+│   │   │   │       │   │   ├── detected.hpp
+│   │   │   │       │   │   ├── identity_tag.hpp
+│   │   │   │       │   │   ├── is_sax.hpp
+│   │   │   │       │   │   ├── std_fs.hpp
+│   │   │   │       │   │   ├── type_traits.hpp
+│   │   │   │       │   │   └── void_t.hpp
+│   │   │   │       │   ├── output
+│   │   │   │       │   │   ├── binary_writer.hpp
+│   │   │   │       │   │   ├── output_adapters.hpp
+│   │   │   │       │   │   └── serializer.hpp
+│   │   │   │       │   ├── string_concat.hpp
+│   │   │   │       │   ├── string_escape.hpp
+│   │   │   │       │   └── value_t.hpp
+│   │   │   │       ├── json.hpp
+│   │   │   │       ├── json_fwd.hpp
+│   │   │   │       ├── ordered_map.hpp
+│   │   │   │       └── thirdparty
+│   │   │   │           └── hedley
+│   │   │   │               ├── hedley.hpp
+│   │   │   │               └── hedley_undef.hpp
+│   │   │   ├── package.xml
+│   │   │   └── src
+│   │   │       ├── bridge.cpp
+│   │   │       └── common
+│   │   │           ├── motor_crc.cpp
+│   │   │           └── ros2_sport_client.cpp
+│   │   ├── go2py_messages
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── msg
+│   │   │   │   ├── Go2pyHighCmd.msg
+│   │   │   │   ├── Go2pyLowCmd.msg
+│   │   │   │   ├── Go2pyState.msg
+│   │   │   │   └── Go2pyStatus.msg
+│   │   │   └── package.xml
+│   │   ├── left_arducam_publisher.py
+│   │   ├── lidar_node
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── README.md
+│   │   │   ├── Version.h.in
+│   │   │   ├── config
+│   │   │   │   └── config.yaml
+│   │   │   ├── launch
+│   │   │   │   ├── dashing_start.py
+│   │   │   │   ├── start.launch
+│   │   │   │   └── start.py
+│   │   │   ├── msg
+│   │   │   │   ├── UdpFrame.msg
+│   │   │   │   ├── UdpPacket.msg
+│   │   │   │   └── msg_ros2
+│   │   │   │       ├── UdpFrame.msg
+│   │   │   │       └── UdpPacket.msg
+│   │   │   ├── node
+│   │   │   │   ├── hesai_ros_driver_node.cc
+│   │   │   │   └── hesai_ros_driver_node.cu
+│   │   │   ├── package.xml
+│   │   │   ├── rviz
+│   │   │   │   ├── rviz.rviz
+│   │   │   │   └── rviz2.rviz
+│   │   │   └── src
+│   │   │       ├── driver
+│   │   │       │   └── HesaiLidar_SDK_2.0
+│   │   │       │       ├── CMakeLists.txt
+│   │   │       │       ├── LICENSE
+│   │   │       │       ├── README.md
+│   │   │       │       ├── Version.h.in
+│   │   │       │       ├── change notes.md
+│   │   │       │       ├── correction
+│   │   │       │       │   ├── angle_correction
+│   │   │       │       │   │   ├── AT128E2X_Angle Correction File.dat
+│   │   │       │       │   │   ├── FT120C1X_Angle Correction File.dat
+│   │   │       │       │   │   ├── OT128_Angle Correction File.csv
+│   │   │       │       │   │   ├── Pandar128E3X_Angle Correction File.csv
+│   │   │       │       │   │   ├── Pandar40M_Angle Correction File.csv
+│   │   │       │       │   │   ├── Pandar40P_Angle Correction File.csv
+│   │   │       │       │   │   ├── Pandar64_Angle Correction File.csv
+│   │   │       │       │   │   ├── Pandar90E3X_Angle Correction File.csv
+│   │   │       │       │   │   ├── PandarQT_Angle Correction File.csv
+│   │   │       │       │   │   ├── PandarXT-16_Angle Correction File.csv
+│   │   │       │       │   │   ├── PandarXT_Angle Correction File.csv
+│   │   │       │       │   │   ├── QT128C2X_Angle Correction File.csv
+│   │   │       │       │   │   ├── QT128C2X_Channel_Cofig.csv
+│   │   │       │       │   │   └── XT32M2X_Angle Correction File.csv
+│   │   │       │       │   └── firetime_correction
+│   │   │       │       │       ├── AT128E2X_Firetime Correction File.csv
+│   │   │       │       │       ├── Pandar128E3X_Firetime Correction File.csv
+│   │   │       │       │       ├── Pandar40E3X_Firetime Correction File.csv
+│   │   │       │       │       ├── Pandar40P_Firetime Correction File.csv
+│   │   │       │       │       ├── Pandar64E3X_Firetime Correction File.csv
+│   │   │       │       │       ├── Pandar64_Firetime Correction File.csv
+│   │   │       │       │       ├── Pandar90_Firetime Correction File.csv
+│   │   │       │       │       ├── PandarXT-16_Firetime Correction File.csv
+│   │   │       │       │       ├── PandarXT_Firetime Correction File.csv
+│   │   │       │       │       └── QT128C2X_Firetime Correction File.csv
+│   │   │       │       ├── driver
+│   │   │       │       │   ├── hesai_lidar_sdk.hpp
+│   │   │       │       │   └── hesai_lidar_sdk_gpu.cuh
+│   │   │       │       ├── libhesai
+│   │   │       │       │   ├── CMakeLists.txt
+│   │   │       │       │   ├── Container
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   ├── blocking_ring.h
+│   │   │       │       │   │   │   ├── ring.h
+│   │   │       │       │   │   │   ├── ring_2d_shared.h
+│   │   │       │       │   │   │   └── ring_2dex.h
+│   │   │       │       │   │   └── src
+│   │   │       │       │   │       ├── blocking_ring.cc
+│   │   │       │       │   │       ├── ring.cc
+│   │   │       │       │   │       ├── ring_2d_shared.cc
+│   │   │       │       │   │       └── ring_2dex.cc
+│   │   │       │       │   ├── Lidar
+│   │   │       │       │   │   ├── lidar.cc
+│   │   │       │       │   │   ├── lidar.h
+│   │   │       │       │   │   └── lidar_types.h
+│   │   │       │       │   ├── Logger
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   └── logger.h
+│   │   │       │       │   │   └── src
+│   │   │       │       │   │       └── logger.cc
+│   │   │       │       │   ├── PtcClient
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   ├── client_base.h
+│   │   │       │       │   │   │   ├── lidar_communication_header.h
+│   │   │       │       │   │   │   ├── ptc_client.h
+│   │   │       │       │   │   │   ├── tcp_client.h
+│   │   │       │       │   │   │   └── tcp_ssl_client.h
+│   │   │       │       │   │   └── src
+│   │   │       │       │   │       ├── ptc_client.cc
+│   │   │       │       │   │       ├── tcp_client.cc
+│   │   │       │       │   │       └── tcp_ssl_client.cc
+│   │   │       │       │   ├── PtcParser
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   ├── general_ptc_parser.h
+│   │   │       │       │   │   │   ├── ptc_1_0_parser.h
+│   │   │       │       │   │   │   └── ptc_2_0_parser.h
+│   │   │       │       │   │   ├── ptc_parser.cc
+│   │   │       │       │   │   ├── ptc_parser.h
+│   │   │       │       │   │   └── src
+│   │   │       │       │   │       ├── general_ptc_parser.cc
+│   │   │       │       │   │       ├── ptc_1_0_parser.cc
+│   │   │       │       │   │       └── ptc_2_0_parser.cc
+│   │   │       │       │   ├── Source
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   ├── pcap_saver.h
+│   │   │       │       │   │   │   ├── pcap_source.h
+│   │   │       │       │   │   │   ├── socket_source.h
+│   │   │       │       │   │   │   └── source.h
+│   │   │       │       │   │   └── src
+│   │   │       │       │   │       ├── pcap_saver.cc
+│   │   │       │       │   │       ├── pcap_source.cc
+│   │   │       │       │   │       ├── socket_source.cc
+│   │   │       │       │   │       └── source.cc
+│   │   │       │       │   ├── UdpParser
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   ├── general_parser.h
+│   │   │       │       │   │   │   ├── udp1_4_parser.h
+│   │   │       │       │   │   │   ├── udp2_4_parser.h
+│   │   │       │       │   │   │   ├── udp2_5_parser.h
+│   │   │       │       │   │   │   ├── udp3_1_parser.h
+│   │   │       │       │   │   │   ├── udp3_2_parser.h
+│   │   │       │       │   │   │   ├── udp4_3_parser.h
+│   │   │       │       │   │   │   ├── udp6_1_parser.h
+│   │   │       │       │   │   │   ├── udp7_2_parser.h
+│   │   │       │       │   │   │   ├── udp_p40_parser.h
+│   │   │       │       │   │   │   └── udp_p64_parser.h
+│   │   │       │       │   │   ├── src
+│   │   │       │       │   │   │   ├── general_parser.cc
+│   │   │       │       │   │   │   ├── udp1_4_parser.cc
+│   │   │       │       │   │   │   ├── udp2_4_parser.cc
+│   │   │       │       │   │   │   ├── udp2_5_parser.cc
+│   │   │       │       │   │   │   ├── udp3_1_parser.cc
+│   │   │       │       │   │   │   ├── udp3_2_parser.cc
+│   │   │       │       │   │   │   ├── udp4_3_parser.cc
+│   │   │       │       │   │   │   ├── udp6_1_parser.cc
+│   │   │       │       │   │   │   ├── udp7_2_parser.cc
+│   │   │       │       │   │   │   ├── udp_p40_parser.cc
+│   │   │       │       │   │   │   └── udp_p64_parser.cc
+│   │   │       │       │   │   ├── udp_parser.cc
+│   │   │       │       │   │   └── udp_parser.h
+│   │   │       │       │   ├── UdpParserGpu
+│   │   │       │       │   │   ├── include
+│   │   │       │       │   │   │   ├── general_parser_gpu.h
+│   │   │       │       │   │   │   ├── nvbuffer.h
+│   │   │       │       │   │   │   ├── return_code.h
+│   │   │       │       │   │   │   ├── safe_call.cuh
+│   │   │       │       │   │   │   ├── udp1_4_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp2_5_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp3_1_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp3_2_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp4_3_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp6_1_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp7_2_parser_gpu.h
+│   │   │       │       │   │   │   ├── udp_p40_parser_gpu.h
+│   │   │       │       │   │   │   └── udp_p64_parser_gpu.h
+│   │   │       │       │   │   ├── src
+│   │   │       │       │   │   │   ├── buffer.cu
+│   │   │       │       │   │   │   ├── general_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp1_4_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp2_5_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp3_1_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp3_2_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp4_3_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp6_1_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp7_2_parser_gpu.cu
+│   │   │       │       │   │   │   ├── udp_p40_parser_gpu.cu
+│   │   │       │       │   │   │   └── udp_p64_parser_gpu.cu
+│   │   │       │       │   │   ├── udp_parser_gpu.cu
+│   │   │       │       │   │   └── udp_parser_gpu.h
+│   │   │       │       │   ├── UdpProtocol
+│   │   │       │       │   │   ├── fault_message.h
+│   │   │       │       │   │   ├── udp_protocol_header.h
+│   │   │       │       │   │   ├── udp_protocol_p40.h
+│   │   │       │       │   │   ├── udp_protocol_p64.h
+│   │   │       │       │   │   ├── udp_protocol_v1_4.h
+│   │   │       │       │   │   ├── udp_protocol_v2_4.h
+│   │   │       │       │   │   ├── udp_protocol_v2_5.h
+│   │   │       │       │   │   ├── udp_protocol_v3_1.h
+│   │   │       │       │   │   ├── udp_protocol_v3_2.h
+│   │   │       │       │   │   ├── udp_protocol_v4_3.h
+│   │   │       │       │   │   ├── udp_protocol_v6_1.h
+│   │   │       │       │   │   └── udp_protocol_v7_2.h
+│   │   │       │       │   ├── driver_param.h
+│   │   │       │       │   ├── include
+│   │   │       │       │   │   ├── auto_tick_count.h
+│   │   │       │       │   │   └── plat_utils.h
+│   │   │       │       │   └── src
+│   │   │       │       │       ├── auto_tick_count.cc
+│   │   │       │       │       └── plat_utils.cc
+│   │   │       │       ├── test
+│   │   │       │       │   ├── test.cc
+│   │   │       │       │   └── test.cu
+│   │   │       │       └── tool
+│   │   │       │           ├── CMakeLists.txt
+│   │   │       │           ├── Version.h.in
+│   │   │       │           ├── packet_loss_tool.cc
+│   │   │       │           ├── pcl_tool.cc
+│   │   │       │           └── pcl_tool.cu
+│   │   │       ├── manager
+│   │   │       │   ├── node_manager.cc
+│   │   │       │   ├── node_manager.cu
+│   │   │       │   ├── node_manager.h
+│   │   │       │   ├── source_driver_ros1.hpp
+│   │   │       │   └── source_driver_ros2.hpp
+│   │   │       └── utility
+│   │   │           └── yaml_reader.hpp
+│   │   ├── m-explore-ros2
+│   │   └── sportmode_nav2
+│   │       ├── CMakeLists.txt
+│   │       ├── launch
+│   │       │   ├── localization_async.launch.py
+│   │       │   ├── mapping.launch.py
+│   │       │   ├── mapping_async.launch.py
+│   │       │   ├── navigation_launch.py
+│   │       │   └── ros_ekf.launch.py
+│   │       ├── package.xml
+│   │       └── params
+│   │           ├── localization_async.yaml
+│   │           ├── mapper_params_online_async.yaml
+│   │           ├── nav2_params.yaml
+│   │           ├── navigate_through_poses_w_replanning_and_recovery.xml
+│   │           ├── navigate_to_pose_w_replanning_and_recovery.xml
+│   │           └── ros_ekf.yaml
+│   └── services
+│       ├── frontcam-v4l-loopback.sh
+│       ├── go2py-bridge.service
+│       ├── go2py-frontcam.service
+│       ├── go2py-hesai.service
+│       ├── go2py-mid360.service
+│       └── go2py-robot-description.service
+├── docker
+│   ├── Dockerfile.aarch64
+│   ├── Dockerfile.go2py
+│   ├── Dockerfile.realsense
+│   ├── Dockerfile.ros2_humble
+│   ├── Dockerfile.user
+│   ├── Dockerfile.x86_64
+│   ├── middleware_profiles
+│   │   └── rtps_udp_profile.xml
+│   ├── patches
+│   │   └── rclcpp-disable-tests.patch
+│   ├── rosdep
+│   │   └── extra_rosdeps.yaml
+│   ├── scripts
+│   │   ├── build-librealsense.sh
+│   │   ├── hotplug-realsense.sh
+│   │   ├── install-3rdparty.sh
+│   │   ├── install-clang.sh
+│   │   ├── install-python-requirements.sh
+│   │   ├── install-realsense-dependencies.sh
+│   │   ├── install-tools.sh
+│   │   ├── install-unitree-ros2.sh
+│   │   ├── install-zed-aarch64.sh
+│   │   ├── install-zed-x86_64.sh
+│   │   └── workspace-entrypoint.sh
+│   └── udev_rules
+│       └── 99-realsense-libusb-custom.rules
+├── docs
+│   ├── assets
+│   │   ├── lidar-camera-extrinsics.drawio
+│   │   ├── lidar-camera-extrinsics.drawio.png
+│   │   ├── openfig.drawio
+│   │   └── openfig.png
+│   ├── nav2.md
+│   ├── setup.md
+│   └── utlidar-camera-calib.md
+├── examples
+│   ├── 00-robot-interface.ipynb
+│   ├── 01-ros2-tools.ipynb
+│   ├── 02-MuJoCo-sim.ipynb
+│   ├── 03-robot-dynamic-model.ipynb
+│   ├── 04-FSM.ipynb
+│   ├── 05-walk-these-ways-RL-controller.ipynb
+│   ├── 06-CaT-Flat-Ground-RL-controller.ipynb
+│   ├── 07-CaT-Parkour-RL-controller.ipynb
+│   ├── 08-ActuatorNet.ipynb
+│   ├── 09-crododdyl.ipynb
+│   ├── MUJOCO_LOG.TXT
+│   ├── foot_contact_profile.png
+│   ├── friction_utils.py
+│   ├── miscellaneous
+│   │   ├── calibration_post_processing.ipynb
+│   │   ├── imu-noise-id-dataset-collector.py
+│   │   ├── kinematic-vicon-dataset-collection.ipynb
+│   │   └── velocity_estimator.ipynb
+│   ├── test.xml
+│   ├── walk.png
+│   └── walk_simulation.py
+├── go2py_messages
+│   ├── __init__.py
+│   └── msg
+│       ├── __init__.py
+│       └── dds_
+│           ├── _Go2pyHighCmd.py
+│           ├── _Go2pyLowCmd.py
+│           ├── _Go2pyState.py
+│           └── __init__.py
+├── multicast_config.py
+├── requirements.txt
+├── scripts
+│   ├── README.md
+│   ├── build_base_image.sh
+│   ├── build_image_layers.sh
+│   ├── dds_messages
+│   │   ├── Go2pyHighCmd.idl
+│   │   ├── Go2pyLowCmd.idl
+│   │   └── Go2pyState.idl
+│   ├── deploy
+│   │   ├── _Dockerfile.deploy
+│   │   ├── _Dockerfile.deploy_ws
+│   │   └── _deploy-entrypoint.sh
+│   ├── docker_deploy.sh
+│   ├── front-cam-v4l-loopback.sh
+│   ├── make_msgs.sh
+│   ├── ros_env_setup.bash
+│   ├── run_dev.sh
+│   ├── run_mexplore.sh
+│   ├── run_nav2.sh
+│   ├── set_cyclonedds_config.py
+│   └── utils
+│       └── print_color.sh
+├── setup.cfg
+├── setup.py
+└── tree.txt
+
+132 directories, 499 files
